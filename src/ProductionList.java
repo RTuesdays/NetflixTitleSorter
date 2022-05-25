@@ -95,24 +95,23 @@ public class ProductionList
 				 * Production sub-constructors.
 				 */
 				String[] directorNames = productionInfo[3].split(",");
-				Director[] directors = new Director[directorNames.length];
+				ArrayList<Director> directors = new ArrayList<Director>();
 				for (int directorIndex = 0; directorIndex < directorNames.length; directorIndex++)
 				{
 					if (directorNames[directorIndex] != null)
 					{
 						// Create a new director object
-						Director director = new Director(
-								directorNames[directorIndex]);
+						Director director = new Director(directorNames[directorIndex]);
 						// Store the new object in a array to pass to production
 						// constructor
-						directors[directorIndex] = director;
+						directors.add(director);
 					}
 					else
 					{
 						// If null, use no-args constructor to create Director
 						// Object with "Unknown Name".
 						Director director = new Director();
-						directors[directorIndex] = director;
+						directors.add(director);
 					}
 				}
 
@@ -120,36 +119,35 @@ public class ProductionList
 				// names of cast members
 				String[] castNames = productionInfo[4].replace('"', ' ')
 						.split(",");
-				CastMember[] castMembers = new CastMember[castNames.length];
+				ArrayList<CastMember> castMembers = new ArrayList<CastMember>();
 				// Process cast information similarly to directors
-				for (int castIndex = 0; castIndex < castMembers.length; castIndex++)
+				for (int castIndex = 0; castIndex < castNames.length; castIndex++)
 				{
 					if (castNames[castIndex] != null)
 					{
 						CastMember actor = new CastMember(castNames[castIndex]);
-						castMembers[castIndex] = actor;
+						castMembers.add(actor);
 					}
 					else
 					{
 						CastMember actor = new CastMember();
-						castMembers[castIndex] = actor;
+						castMembers.add(actor);
 					}
 				}
 
 				// Process genre similarly to above criteria
 				String[] genres = productionInfo[10].split(",");
-				Genre[] genreList = new Genre[genres.length];
+				ArrayList<Genre> genreList = new ArrayList<Genre>();
 				for (int genreIndex = 0; genreIndex < genres.length; genreIndex++)
 				{
 					if (genres[genreIndex] != null)
 					{
 						Genre genre = new Genre(genres[genreIndex]);
-						genreList[genreIndex] = genre;
+						genreList.add(genre);
 					}
 					else
 					{
-						Genre genre = new Genre();
-						genreList[genreIndex] = genre;
+						genreList.add(new Genre());
 					}
 				}
 

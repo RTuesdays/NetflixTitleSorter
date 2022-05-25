@@ -23,7 +23,25 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class TitleSorterView extends JFrame {
+/**
+ * Lead Author(s):
+ * 
+ * @author Jordan Roby, 5550070367
+ * 
+ *         References:
+ *         Morelli, R., & Walde, R. (2016). Java, Java, Java: Object-Oriented
+ *         Problem Solving.
+ *         Retrieved from
+ *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
+ * 
+ *         Version/date: v2 25 May 2022
+ * 
+ *         Responsibilities of class: Create a GUI to display ProductionList to
+ *         the user. Handle events to sort through the ProductionList and
+ *         display the sorted list to the user.
+ */
+public class TitleSorterView extends JFrame
+{
 
 	private final ProductionList allTitles;
 	private Production[] listToDisplay;
@@ -33,7 +51,7 @@ public class TitleSorterView extends JFrame {
 	JButton searchButton = new JButton("Search");
 	private String sortingType;
 
-	public TitleSorterView(ProductionList model) 
+	public TitleSorterView(ProductionList model)
 	{
 		allTitles = model;
 		listToDisplay = model.getProductionArray();
@@ -46,8 +64,8 @@ public class TitleSorterView extends JFrame {
 		setVisible(true);
 
 		/*
-		 * Creating a panel for information. Will be placed in BorderLayour.North
-		 * 
+		 * Creating a panel for information. Will be placed in
+		 * BorderLayour.North
 		 * This panel will contain a Label, ComboBox, TextField, and Button.
 		 */
 		JPanel topPanel = new JPanel(new FlowLayout());
@@ -56,47 +74,53 @@ public class TitleSorterView extends JFrame {
 		JLabel sortLabel = new JLabel("Please select a search Method: ");
 
 		// Create a combo box for a drop-down selection of search methods
-		String[] sortMethods = { "All Titles", "Movies", "TV-Shows", "Genre", "Director", "Cast" };
+		String[] sortMethods = { "All Titles", "Movies", "TV-Shows", "Genre",
+				"Director", "Cast" };
 		JComboBox<String> sortMethod = new JComboBox<String>(sortMethods);
 
-		// Create a new Item Listener to retrieve the selection from the ComboBox
-		SortMethodListener sortMethodListener = new SortMethodListener(this, sortMethod);
+		// Create a new Item Listener to retrieve the selection from the
+		// ComboBox
+		SortMethodListener sortMethodListener = new SortMethodListener(this,
+				sortMethod);
 		sortMethod.addItemListener(sortMethodListener);
 
 		/*
 		 * Format the searchEntry JTextField to make it cleaner for the user.
-		 * 
-		 * setPreferredSize will prevent the text field from resizing after the text is
+		 * setPreferredSize will prevent the text field from resizing after the
+		 * text is
 		 * changed.
-		 * 
-		 * Add a mouseListener so that the we can clear the text automatically when the
-		 * user clicks on the textField. This makes it so the user doesn't have to
+		 * Add a mouseListener so that the we can clear the text automatically
+		 * when the
+		 * user clicks on the textField. This makes it so the user doesn't have
+		 * to
 		 * manually clear out the instructions/ entry each time.
-		 * 
 		 */
 		searchEntry.setPreferredSize(new Dimension(350, 20));
 		searchEntry.setText("Genre, Director or Cast Member to search for.");
 		searchEntry.addMouseListener(new MouseAdapter()
 		{
 			@Override
-			public void mouseClicked(MouseEvent e) 
+			public void mouseClicked(MouseEvent e)
 			{
 				searchEntry.setText("");
 			}
 		});
 
 		/*
-		 * TextField and Button are disable until a searchMethod that needs them is
+		 * TextField and Button are disable until a searchMethod that needs them
+		 * is
 		 * selected.
-		 * 
-		 * Our SortMethodListener will enable these widgets should they be needed.
+		 * Our SortMethodListener will enable these widgets should they be
+		 * needed.
 		 */
 		searchEntry.setEnabled(false);
 		searchButton.setEnabled(false);
 
-		// Create and add listener with parameters (TitleSorterview, ProductionList,
+		// Create and add listener with parameters (TitleSorterview,
+		// ProductionList,
 		// JTextfield)
-		searchButton.addActionListener(new SearchButtonListener(this, allTitles, searchEntry));
+		searchButton.addActionListener(
+				new SearchButtonListener(this, allTitles, searchEntry));
 
 		// Add components to the top panel
 		topPanel.add(sortLabel);
@@ -108,10 +132,12 @@ public class TitleSorterView extends JFrame {
 		add(topPanel, BorderLayout.NORTH);
 
 		/*
-		 * Creating a Bottom-Panel for Production description and Programmer info.
-		 * 
-		 * This panel will contain a Label for programmer Info, and a TextArea for title
-		 * descriptions. Panel is in BorderLayout to "stack" components in North and
+		 * Creating a Bottom-Panel for Production description and Programmer
+		 * info.
+		 * This panel will contain a Label for programmer Info, and a TextArea
+		 * for title
+		 * descriptions. Panel is in BorderLayout to "stack" components in North
+		 * and
 		 * South regions.
 		 */
 		JPanel bottomPanel = new JPanel(new BorderLayout());
@@ -121,9 +147,11 @@ public class TitleSorterView extends JFrame {
 		programmerName.setFont(programmerName.getFont().deriveFont(Font.BOLD));
 		programmerName.setHorizontalAlignment(JTextField.CENTER);
 
-		// Make a new text area to hold production information when selected from our
+		// Make a new text area to hold production information when selected
+		// from our
 		// list.
-		JTextArea descriptionBox = new JTextArea("Production information will be displayed here.");
+		JTextArea descriptionBox = new JTextArea(
+				"Production information will be displayed here.");
 		// Wraps text to prevent scrolling if text is longer than our width.
 		descriptionBox.setLineWrap(true);
 		// Set size to TextArea box doesnt change with each production
@@ -141,8 +169,10 @@ public class TitleSorterView extends JFrame {
 		 */
 		JPanel centerPanel = new JPanel();
 
-		// Populate the model with the title of each production in the listToDisplay
-		for (int i = 0; i < allTitles.getProductionArray().length; i++) {
+		// Populate the model with the title of each production in the
+		// listToDisplay
+		for (int i = 0; i < allTitles.getProductionArray().length; i++)
+		{
 			listModel.addElement(listToDisplay[i].getTitle());
 		}
 
@@ -151,17 +181,23 @@ public class TitleSorterView extends JFrame {
 		// Default selection will be the first title of the list
 		listDisplay.setSelectedIndex(0);
 		// Add a listener to get the index of the selected element
-		listDisplay.addListSelectionListener(new ListSelectionListener() {
-			public void valueChanged(ListSelectionEvent e) {
-				if (!e.getValueIsAdjusting()) {
+		listDisplay.addListSelectionListener(new ListSelectionListener()
+		{
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if (!e.getValueIsAdjusting())
+				{
 					int index = listDisplay.getSelectedIndex();
 					// If the list is empty, display a dialogue box
-					if (listToDisplay.length == 0) {
+					if (listToDisplay.length == 0)
+					{
 						JOptionPane.showMessageDialog(null, "No Titles Found.");
 					}
-					// If there are titles in the list, set the descriptionBox to the Info of the
+					// If there are titles in the list, set the descriptionBox
+					// to the Info of the
 					// Production at the selected index
-					else if (index != -1 && listModel.size() > 0) {
+					else if (index != -1 && listModel.size() > 0)
+					{
 						descriptionBox.setText(listToDisplay[index].getInfo());
 					}
 				}
@@ -186,29 +222,33 @@ public class TitleSorterView extends JFrame {
 
 	}
 
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
-		new TitleSorterView(new ProductionList("netflix_titles_smallSample.csv", 100));
+		new TitleSorterView(
+				new ProductionList("netflix_titles_smallSample.csv", 100));
 	}
 
 	/**
-	 * Purpose: Setter to change the listToDisplay (titles being displayed in the
-	 * JList) whenever sort methods are selected to sort through our list of titles.
+	 * Purpose: Setter to change the listToDisplay (titles being displayed in
+	 * the
+	 * JList) whenever sort methods are selected to sort through our list of
+	 * titles.
 	 * 
 	 * @param sortedList, the list after sorting methods have been selected
 	 */
-	public void setListToDisplay(Production[] sortedList) 
+	public void setListToDisplay(Production[] sortedList)
 	{
 		listToDisplay = sortedList;
 	}
 
 	/**
 	 * Purpose: Getter for the allTitles list, the list of allTitles is used to
-	 * display allTitles, and is the default list to be passed to sorting methods.
+	 * display allTitles, and is the default list to be passed to sorting
+	 * methods.
 	 * 
 	 * @return allTitles
 	 */
-	public ProductionList getAllTitles() 
+	public ProductionList getAllTitles()
 	{
 		return allTitles;
 	}
@@ -216,11 +256,11 @@ public class TitleSorterView extends JFrame {
 	/**
 	 * Purpose: Updates the Productions being displayed in the in our JList.
 	 */
-	public void updateUI() 
+	public void updateUI()
 	{
 		listDisplay.clearSelection();
 		listModel.clear();
-		for (int i = 0; i < listToDisplay.length; i++) 
+		for (int i = 0; i < listToDisplay.length; i++)
 		{
 			listModel.addElement(listToDisplay[i].getTitle());
 		}
@@ -229,24 +269,27 @@ public class TitleSorterView extends JFrame {
 	}
 
 	/**
-	 * Purpose: Getter for the sortingType, sortingType is updated by the ComboBox
+	 * Purpose: Getter for the sortingType, sortingType is updated by the
+	 * ComboBox
 	 * listener whenever a new option from the ComboBox is selected.
 	 * 
-	 * @return sortingType, a string representing the selection of the sortMethod
+	 * @return sortingType, a string representing the selection of the
+	 *         sortMethod
 	 *         ComboBox
 	 */
-	public String getSortType() 
+	public String getSortType()
 	{
 		return sortingType;
 	}
 
 	/**
-	 * Purpose: Called by the SortMethodListener to change the value whenever a new
+	 * Purpose: Called by the SortMethodListener to change the value whenever a
+	 * new
 	 * selection is made from the sortMethod comboBox
 	 * 
 	 * @param newSortType
 	 */
-	public void setSortType(String newSortType) 
+	public void setSortType(String newSortType)
 	{
 		sortingType = newSortType;
 	}

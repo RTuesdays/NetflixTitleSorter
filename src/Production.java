@@ -31,11 +31,11 @@ public abstract class Production
 	// Production HAS A title
 	private String title;
 	// Production HAS Many directors
-	private ArrayList<Person> directors;
+	private ArrayList<Director> directors;
 	// integer for the next element in a array to assign a director
 	private int directorIndex = 0;
 	// Production HAS Many castMembers
-	private ArrayList<Person> cast;
+	private ArrayList<CastMember> cast;
 	// Production can HAVE Multiple genre's
 	private ArrayList<Genre> genres;
 	// Production HAS A releaseDate
@@ -63,34 +63,22 @@ public abstract class Production
 	 * @param title
 	 * @param releaseDate
 	 * @param description
-	 * @param directors
-	 * @param cast
-	 * @param genres
+	 * @param directors2
+	 * @param castMembers
+	 * @param genreList
 	 */
 	public Production(String type, String title, String releaseDate,
-			String description, Director[] directors, CastMember[] cast,
-			Genre[] genres)
+			String description, ArrayList<Director> directors, ArrayList<CastMember> castMembers,
+			ArrayList<Genre> genreList)
 	{
 		this.type = type;
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.description = description;
 		this.directors = directors;
-		this.cast = cast;
-		this.genres = genres;
+		this.cast = castMembers;
+		this.genres = genreList;
 
-	}
-
-	/**
-	 * Purpose: Add a director object to the next available index of the list of
-	 * directors.
-	 * 
-	 * @param director
-	 */
-	public void addDirector(Director director)
-	{
-		directors[directorIndex] = director;
-		directorIndex++;
 	}
 
 	/**
@@ -138,25 +126,29 @@ public abstract class Production
 			// Null check
 			if (directors.get(i) != null)
 			{
-				// If i matched the last element, add the director and no additional comma
+				// If i matched the last element, add the director and no
+				// additional comma
 				if (i == directors.size() - 1)
 				{
 					directorsString += directors.get(i);
 				}
-				// If there are more director objects, add a comma to separate them
+				// If there are more director objects, add a comma to separate
+				// them
 				else
 				{
 					directorsString += directors.get(i) + ", ";
 				}
 			}
 		}
-		
-		// Return the string of directors with separating quotations from .csv file removed.
+
+		// Return the string of directors with separating quotations from .csv
+		// file removed.
 		return directorsString.replace('"', ' ');
 	}
 
 	/**
-	 * Purpose: Return a string of the information store in the array of castMembers
+	 * Purpose: Return a string of the information store in the array of
+	 * castMembers
 	 * Processes similiarly to getDirectors method.
 	 * 
 	 * @return string of cast

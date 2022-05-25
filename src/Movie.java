@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 /**
  * Lead Author(s):
@@ -42,15 +42,15 @@ public class Movie extends Production
 	 * @param runtime
 	 * @param directors
 	 * @param castMembers
-	 * @param genres
+	 * @param genreList
 	 */
 	public Movie(String type, String title, String releaseYear,
-			String description, String runtime, Director[] directors,
-			CastMember[] castMembers, Genre[] genres)
+			String description, String runtime, ArrayList<Director> directors,
+			ArrayList<CastMember> castMembers, ArrayList<Genre> genreList)
 	{
 		// Call superclass constructor for Production
 		super(type, title, releaseYear, description, directors, castMembers,
-				genres);
+				genreList);
 		// Add the runtime
 		this.runtime = runtime;
 	}

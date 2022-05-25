@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 /**
  * Lead Author(s):
@@ -40,16 +40,16 @@ public class TVShow extends Production
 	 * @param description
 	 * @param seasons
 	 * @param directors
-	 * @param castMember
-	 * @param genres
+	 * @param castMembers
+	 * @param genreList
 	 */
 	public TVShow(String type, String title, String releaseYear,
-			String description, String seasons, Director[] directors,
-			CastMember[] castMember, Genre[] genres)
+			String description, String seasons, ArrayList<Director> directors,
+			ArrayList<CastMember> castMembers, ArrayList<Genre> genreList)
 	{
 		// Call superclass constructor from Production
-		super(type, title, releaseYear, description, directors, castMember,
-				genres);
+		super(type, title, releaseYear, description, directors, castMembers,
+				genreList);
 		// Set number of seasons
 		this.seasons = seasons;
 	}
