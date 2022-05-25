@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 /**
  * Lead Author(s):
@@ -31,13 +31,13 @@ public abstract class Production
 	// Production HAS A title
 	private String title;
 	// Production HAS Many directors
-	private Person[] directors;
+	private ArrayList<Person> directors;
 	// integer for the next element in a array to assign a director
 	private int directorIndex = 0;
 	// Production HAS Many castMembers
-	private Person[] cast;
+	private ArrayList<Person> cast;
 	// Production can HAVE Multiple genre's
-	private Genre[] genres;
+	private ArrayList<Genre> genres;
 	// Production HAS A releaseDate
 	private String releaseDate;
 	// Production HAS A summary/ description
@@ -133,20 +133,20 @@ public abstract class Production
 		String directorsString = "";
 
 		// Loop to iterate through the array of director objects
-		for (int i = 0; i < directors.length; i++)
+		for (int i = 0; i < directors.size(); i++)
 		{
 			// Null check
-			if (directors[i] != null)
+			if (directors.get(i) != null)
 			{
 				// If i matched the last element, add the director and no additional comma
-				if (i == directors.length - 1)
+				if (i == directors.size() - 1)
 				{
-					directorsString += directors[i];
+					directorsString += directors.get(i);
 				}
 				// If there are more director objects, add a comma to separate them
 				else
 				{
-					directorsString += directors[i] + ", ";
+					directorsString += directors.get(i) + ", ";
 				}
 			}
 		}
@@ -165,17 +165,17 @@ public abstract class Production
 	{
 		String castMembersString = "";
 
-		for (int i = 0; i < cast.length; i++)
+		for (int i = 0; i < cast.size(); i++)
 		{
-			if (cast[i] != null)
+			if (cast.get(i) != null)
 			{
-				if (i == cast.length - 1)
+				if (i == cast.size() - 1)
 				{
-					castMembersString += cast[i];
+					castMembersString += cast.get(i);
 				}
 				else
 				{
-					castMembersString += cast[i] + ", ";
+					castMembersString += cast.get(i) + ", ";
 				}
 			}
 		}
@@ -197,7 +197,7 @@ public abstract class Production
 	abstract String getInfo();
 
 	/**
-	 * Purpose: Get the information stored in the genre array as a string.
+	 * Purpose: Get the information stored in the genre ArrayList as a string.
 	 * Processes similiarly to getDirectors and getCastMembers.
 	 * 
 	 * @return
@@ -206,17 +206,17 @@ public abstract class Production
 	{
 		String genreString = "";
 
-		for (int i = 0; i < genres.length; i++)
+		for (int i = 0; i < genres.size(); i++)
 		{
-			if (genres[i] != null)
+			if (genres.get(i) != null)
 			{
-				if (i == genres.length - 1)
+				if (i == genres.size() - 1)
 				{
-					genreString += genres[i];
+					genreString += genres.get(i);
 				}
 				else
 				{
-					genreString += genres[i] + ", ";
+					genreString += genres.get(i) + ", ";
 				}
 			}
 		}

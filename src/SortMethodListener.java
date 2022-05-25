@@ -3,56 +3,62 @@ import java.awt.event.ItemListener;
 
 import javax.swing.JComboBox;
 
-public class SortMethodListener implements ItemListener
-{
+public class SortMethodListener implements ItemListener {
 	private TitleSorterView titleSorterView;
 	private JComboBox<String> sortMethod;
 
-	public SortMethodListener(TitleSorterView titleSorterView,
-			JComboBox<String> sortMethod)
-	{
+	public SortMethodListener(TitleSorterView titleSorterView, JComboBox<String> sortMethod) {
 		this.titleSorterView = titleSorterView;
 		this.sortMethod = sortMethod;
 	}
 
 	@Override
-	public void itemStateChanged(ItemEvent e)
-	{
-		if (e.getStateChange() == ItemEvent.SELECTED)
-		{
+	/**
+	 * Purpose: Determine the sorting choice from sortMethod ComboBox. If possible,
+	 * perform the selected sort method and set the listToDisplay to our newly
+	 * sorted list.
+	 * 
+	 * For Genre, Cast, and Director, additional input is needed to perform the
+	 * sorting. If these options are selected, enable our searchEntry TextField and
+	 * the searchButton to prompt user to enter the needed criteria.
+	 */
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getStateChange() == ItemEvent.SELECTED) {
+
+			// Sets the sortType to the text currently selected in the ComboBox
 			String sortType = sortMethod.getSelectedItem().toString();
-			
+
+			// Sets the sortType field from our titleSorterView (passed to our
+			// SearchButtonListener if additional input is needed for the sorting)
 			titleSorterView.setSortType(sortType);
 
-			if (sortType == "All Titles")
-			{
+			//If All Titles is selected, listToDisplay is allTitles field
+			if (sortType.equals("All Titles")) {
 				titleSorterView.setListToDisplay(titleSorterView.getAllTitles().getProductionArray());
 				titleSorterView.searchEntry.setEnabled(false);
 				titleSorterView.searchButton.setEnabled(false);
 			}
 
-			if (sortType == "Movies")
-			{
-				titleSorterView.setListToDisplay(titleSorterView.getAllTitles()
-						.sortMovies().getProductionArray());
+			//If Movies is selected. Call .sortMovies from Production list and the listToDisplay as an array of the sorted productions.
+			if (sortType.equals("Movies")) {
+				titleSorterView.setListToDisplay(titleSorterView.getAllTitles().sortMovies().getProductionArray());
 				titleSorterView.searchEntry.setEnabled(false);
 				titleSorterView.searchButton.setEnabled(false);
 			}
-			if (sortType == "TV-Shows")
-			{
-				titleSorterView.setListToDisplay(titleSorterView.getAllTitles()
-						.sortTVShows().getProductionArray());
+			//If TV-Shows is selected. Call .sortTvShows from ProductionList ans set the listToDisplay field as an array of the newly sorted productions.
+			if (sortType.equals("TV-Shows")) {
+				titleSorterView.setListToDisplay(titleSorterView.getAllTitles().sortTVShows().getProductionArray());
 				titleSorterView.searchEntry.setEnabled(false);
 				titleSorterView.searchButton.setEnabled(false);
 			}
-			if (sortType == "Genre" || sortType == "Cast"
-					|| sortType == "Director" || sortType == "Release Year")
-			{
+			//If Genre, Cast, or Director is selected additional input is needed. Enable the widgets for the user to enter more information.
+			if (sortType.equals("Genre") || sortType.equals("Cast") || sortType.equals("Director")) {
 				titleSorterView.searchEntry.setEnabled(true);
 				titleSorterView.searchButton.setEnabled(true);
 			}
 		}
-
+		
+		//Call updateUI to reflect these changes to the user
 		titleSorterView.updateUI();
 	}
 
