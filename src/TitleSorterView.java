@@ -45,10 +45,10 @@ public class TitleSorterView extends JFrame
 
 	private final ProductionList allTitles;
 	private Production[] listToDisplay;
-	JTextField searchEntry = new JTextField();
-	DefaultListModel<String> listModel = new DefaultListModel<String>();
-	JList<String> listDisplay = new JList<String>();
-	JButton searchButton = new JButton("Search");
+	private JTextField searchEntry = new JTextField();
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();
+	private JList<String> listDisplay = new JList<String>();
+	private JButton searchButton = new JButton("Search");
 	private String sortingType;
 
 	public TitleSorterView(ProductionList model)
@@ -292,5 +292,25 @@ public class TitleSorterView extends JFrame
 	public void setSortType(String newSortType)
 	{
 		sortingType = newSortType;
+	}
+
+	/**
+	 * Purpose: Enables or disables the searchEntry TextField and searchButton
+	 * JButton depending on method selected in searchMethod ComboBox.
+	 * 
+	 * @param b, determines if box is enabled or disabled
+	 */
+	public void allowAdditionalInput(boolean b)
+	{
+		if (b == false)
+		{
+			searchEntry.setEnabled(false);
+			searchButton.setEnabled(false);
+		}
+		else if (b == true)
+		{
+			searchEntry.setEnabled(true);
+			searchButton.setEnabled(true);
+		}
 	}
 }
