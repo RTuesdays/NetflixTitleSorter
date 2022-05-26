@@ -34,23 +34,42 @@ import javax.swing.event.ListSelectionListener;
  *         Retrieved from
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
+ *         How to write an action listener (The Java™ tutorials > creating a GUI
+ *         with swing > writing event listeners). (n.d.). Moved.
+ *         https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html
+ * 
  *         Version/date: v2 25 May 2022
  * 
  *         Responsibilities of class: Create a GUI to display ProductionList to
  *         the user. Handle events to sort through the ProductionList and
  *         display the sorted list to the user.
  */
+
+// TitleSorterView IS A JFrame
 public class TitleSorterView extends JFrame
 {
-
+	// TitleSorterView HAS A default list of all titles
 	private final ProductionList allTitles;
+	// TitleSorterView HAS A list to be displayed
 	private Production[] listToDisplay;
+	// TitleSorterView HAS A textfield for searchInput
 	private JTextField searchEntry = new JTextField();
+	// TitleSorterView HAS A listModel
 	private DefaultListModel<String> listModel = new DefaultListModel<String>();
+	// TitleSorterView HAS A listDisplay
 	private JList<String> listDisplay = new JList<String>();
+	// TitleSorterView HAS A searchButton
 	private JButton searchButton = new JButton("Search");
+	// TitleSorterView HAS A sorting type
 	private String sortingType;
 
+	/**
+	 * Purpose: Create a interface to display ProductionList information to the
+	 * user. Additionally allows user interaction to further sort the list being
+	 * displayed.
+	 * 
+	 * @param model
+	 */
 	public TitleSorterView(ProductionList model)
 	{
 		allTitles = model;

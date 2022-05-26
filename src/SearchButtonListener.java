@@ -15,6 +15,14 @@ import javax.swing.JTextField;
  *         Retrieved from
  *         https://open.umn.edu/opentextbooks/textbooks/java-java-java-object-oriented-problem-solving
  * 
+ *         How to write an action listener (The Java™ tutorials > creating a GUI
+ *         with swing > writing event listeners). (n.d.). Moved.
+ *         https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html
+ * 
+ *         Using actionPerformed from another Java class. (2021, January 27).
+ *         GeeksforGeeks.
+ *         https://www.geeksforgeeks.org/using-actionperformed-from-another-java-class*
+ * 
  *         Version/date: v2 25 May 2022
  * 
  *         Responsibilities of class: Pulls information from sortMethod ComboBox
@@ -24,9 +32,13 @@ import javax.swing.JTextField;
  */
 public class SearchButtonListener implements ActionListener
 {
+	// SearchButtonListener HAS A view
 	private TitleSorterView titleSorterView;
+	// SearchButtonListener HAS A userSearchInput
 	private String userSearchInput;
+	// SearchButtonLsitener HAS A list of all titles
 	private ProductionList allTitles;
+	// SearchButtonLister HAS A textfield to retrieve userSearchInput
 	private JTextField searchEntry;
 
 	public SearchButtonListener(TitleSorterView titleSorterView,
